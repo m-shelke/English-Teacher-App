@@ -12,7 +12,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.IOException;
+
+import pl.droidsonroids.gif.GifDecoder;
+
+//implementing View.OnClickListener
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //init XML Views
     MaterialButton greenBtn,yellowBtn,redBtn,blueBtn,orangeBtn;
@@ -38,49 +43,87 @@ public class MainActivity extends AppCompatActivity {
         blueBtn = findViewById(R.id.blueBtn);
         orangeBtn = findViewById(R.id.orangeBtn);
 
-        //Handle click event on Button
-        greenBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Creating MediaPlayer, and passing 1.Context 2.Resource File
-                mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.greenn);
-                //start playing MediaPlayer
-                mediaPlayer.start();
-            }
-        });
+//        //Handle click event on Button
+//        greenBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Creating MediaPlayer, and passing 1.Context 2.Resource File
+//                mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.greenn);
+//                //start playing MediaPlayer
+//                mediaPlayer.start();
+//            }
+//        });
+//
+//        //Handle click event on Button
+//        yellowBtn.setOnClickListener(v -> {
+//            //Creating MediaPlayer, and passing 1.Context 2.Resource File
+//            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.yellow);
+//            //start playing MediaPlayer
+//            mediaPlayer.start();
+//        });
+//
+//        //Handle click event on Button
+//        redBtn.setOnClickListener(v -> {
+//            //Creating MediaPlayer, and passing 1.Context 2.Resource File
+//            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.red);
+//            //start playing MediaPlayer
+//            mediaPlayer.start();
+//        });
 
-        //Handle click event on Button
-        yellowBtn.setOnClickListener(v -> {
-            //Creating MediaPlayer, and passing 1.Context 2.Resource File
-            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.yellow);
-            //start playing MediaPlayer
-            mediaPlayer.start();
-        });
+//        //Handle click event on Button
+//        blueBtn.setOnClickListener(v -> {
+//            //Creating MediaPlayer, and passing 1.Context 2.Resource File
+//            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.blue);
+//            //start playing MediaPlayer
+//            mediaPlayer.start();
+//        });
+//
+//        //Handle click event on Button
+//        orangeBtn.setOnClickListener(v -> {
+//            //Creating MediaPlayer, and passing 1.Context 2.Resource File
+//            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.orange);
+//            //start playing MediaPlayer
+//            mediaPlayer.start();
+//        });
 
-        //Handle click event on Button
-        redBtn.setOnClickListener(v -> {
-            //Creating MediaPlayer, and passing 1.Context 2.Resource File
-            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.red);
-            //start playing MediaPlayer
-            mediaPlayer.start();
-        });
+        //Handling Multiple Button's Click
+        greenBtn.setOnClickListener(this);
+        yellowBtn.setOnClickListener(this);
+        redBtn.setOnClickListener(this);
+        blueBtn.setOnClickListener(this);
+        orangeBtn.setOnClickListener(this);
 
-        //Handle click event on Button
-        blueBtn.setOnClickListener(v -> {
-            //Creating MediaPlayer, and passing 1.Context 2.Resource File
-            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.blue);
-            //start playing MediaPlayer
-            mediaPlayer.start();
-        });
+    }
 
-        //Handle click event on Button
-        orangeBtn.setOnClickListener(v -> {
-            //Creating MediaPlayer, and passing 1.Context 2.Resource File
-            mediaPlayer = MediaPlayer.create(MainActivity.this,R.raw.orange);
-            //start playing MediaPlayer
-            mediaPlayer.start();
-        });
+    //overriding onClick() method of  View.OnClickListener interface
+    @Override
+    public void onClick(View v) {
+        //Find the Button by ID and play the correct sound
+        int clickBtnId = v.getId();
 
+        if (clickBtnId == R.id.blueBtn){
+            //calling playSound method and passing Resource ID
+            playSound(R.raw.blue);
+        } else if (clickBtnId == R.id.greenBtn) {
+            //calling playSound method and passing Resource ID
+            playSound(R.raw.greenn);
+        } else if (clickBtnId == R.id.yellowBtn) {
+            //calling playSound method and passing Resource ID
+            playSound(R.raw.yellow);
+        } else if (clickBtnId == R.id.redBtn) {
+            //calling playSound method and passing Resource ID
+            playSound(R.raw.red);
+        }else {
+            //calling playSound method and passing Resource ID
+            playSound(R.raw.orange);
+        }
+    }
 
+    //playSound function for playing audio sound
+    public void playSound(int resId){
+        //creating MediaPlayer, and passing two parameter 1.Context 2.Resource ID
+         mediaPlayer = MediaPlayer.create(this,resId);
+        //start playing
+        mediaPlayer.start();
     }
 }

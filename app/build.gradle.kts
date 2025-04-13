@@ -40,4 +40,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //GIF Dependency
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
 }
